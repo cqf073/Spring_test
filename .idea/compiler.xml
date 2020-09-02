@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="demo" />
+        <module name="Mybatis_Spring" />
+        <module name="Mybatis_Spring02" />
+        <module name="Spring_01" />
+        <module name="Spring_02" />
+        <module name="Spring_03" />
+        <module name="Spring_06" />
+        <module name="Spring_07" />
+        <module name="Spring_07_Aop" />
+        <module name="Spring_IOC1" />
+        <module name="Spring_Mybatis02" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="demo" target="1.8" />
+      <module name="Mybatis_Spring" target="1.8" />
+      <module name="Mybatis_Spring02" target="1.8" />
+      <module name="Spring" target="1.8" />
+      <module name="Spring_01" target="1.8" />
+      <module name="Spring_02" target="1.8" />
+      <module name="Spring_03" target="1.8" />
+      <module name="Spring_06" target="1.8" />
+      <module name="Spring_07" target="1.8" />
+      <module name="Spring_07_Aop" target="1.8" />
+      <module name="Spring_IOC1" target="1.8" />
+      <module name="Spring_Mybatis02" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

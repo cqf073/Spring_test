@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+    <!--datasourse使用Spring 的数据源替换mybatis 的配置-->
+    <!--org.springframework.jdbc.datasource.DriverManagerDataSource这个是spring-jdbc提供的-->
+    <bean id="resourse" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="password" value="123456"/>
+        <property name="username" value="root"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/smbms?useSSL=true&amp;useUnicode=true&amp;characterEncodeing=UTF-8&amp;serverTimezone=GMT"/>
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+
+     </bean>
+    <!--sqlsessionfactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="resourse" />
+        <!--绑定mybatis-->
+        <property name="configLocation" value="classpath:MybatisConfig.xml"/>
+        <!--绑定映射器文件  可以代替mybatis的mappers-->
+        <property name="mapperLocations" value="classpath:com/cqf/dao/UserMapper.xml"/>
+
+        <!--<property name="typeAliases" value="com.cqf.pojo.User" />-->
+    </bean>
+    <bean id="sqlsession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+    <!--实现1实现的内容-->
+    <bean id="usermapper" class="com.cqf.dao.UserMapperImpl">
+        <property name="sqlSession" ref="sqlsession"/>
+    </bean>
+    <!--实现2继承的extends SqlSessionDaoSupport-->
+<bean id="usermapper2" class="com.cqf.dao.UserMapperImpl2">
+    <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+</bean>
+</beans>

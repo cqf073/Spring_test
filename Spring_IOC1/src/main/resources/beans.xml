@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--spring创建对象  相当于对象  property 属性设置值  class 给要new对-->
+    <bean id="he" class="com.cqf.dao.UserdaoImpl"></bean>
+    <bean id="ser" class="com.cqf.service.serviceImpl">
+        <!--ref 引用容器创建的对象-->
+        <property name="userdao" ref="he"></property>
+    </bean>
+
+
+</beans>

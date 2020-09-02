@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--spring创建对象  相当于对象  property 属性设置值  class 给要new对-->
+
+<bean id="user" class="com.cqf.pojo.User" p:age="19" p:name="lisi"  scope="prototype">
+
+</bean>
+    <bean id="user1" class="com.cqf.pojo.User" c:age="18" c:name="zahngshan" scope="singleton" >
+
+    </bean>
+
+
+
+</beans>

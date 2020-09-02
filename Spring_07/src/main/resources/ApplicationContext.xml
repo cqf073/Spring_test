@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--spring创建对象  相当于对象  property 属性设置值  class 给要new对-->
+
+
+<!--注册bean-->
+    <bean id="userservice" class="com.cqf.service.UserServiceImpl"/>
+    <bean id="log" class="com.cqf.log.Log"/>
+    <bean id="after" class="com.cqf.log.AfterLog"/>
+
+    <!--方式一-->
+    <!--配置aop-->
+    <!--<aop:config>-->
+        <!--&lt;!&ndash;切入点execution(要执行 的位置)&ndash;&gt;-->
+        <!--<aop:pointcut id="p" expression="execution(* com.cqf.service.UserServiceImpl.*(..))"></aop:pointcut>-->
+        <!--&lt;!&ndash;执行环绕增强&ndash;&gt;-->
+        <!--<aop:advisor advice-ref="log" pointcut-ref="p"/>-->
+        <!--<aop:advisor advice-ref="after" pointcut-ref="p"/>-->
+    <!--</aop:config>-->
+    <!--diy的切面类-->
+
+
+    <!--方式二-->
+    <!--<bean id="idy" class="com.cqf.DIY.DIYpointcut"></bean>-->
+<!--<aop:config>-->
+    <!--<aop:aspect ref="idy">-->
+        <!--&lt;!&ndash;切入点&ndash;&gt;-->
+        <!--<aop:pointcut id="aop" expression="execution(* com.cqf.service.UserServiceImpl.*(..))"/>-->
+        <!--<aop:before method="before" pointcut-ref="aop"/>-->
+        <!--<aop:after method="after" pointcut-ref="aop"/>-->
+    <!--</aop:aspect>-->
+<!--</aop:config>-->
+    <!--方式三-->
+        <bean id="method" class="com.cqf.DIY.MethodAnnoution"/>
+            <!--开启注解支持-->
+        <aop:aspectj-autoproxy/>
+
+
+    </beans>

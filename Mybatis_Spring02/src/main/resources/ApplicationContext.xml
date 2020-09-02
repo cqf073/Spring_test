@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+        https://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--datasourse使用Spring 的数据源替换mybatis 的配置-->
+    <!--org.springframework.jdbc.datasource.DriverManagerDataSource这个是spring-jdbc提供的-->
+    <bean id="resourse" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="password" value="123456"/>
+        <property name="username" value="root"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/smbms?useSSL=true&amp;useUnicode=true&amp;characterEncodeing=UTF-8&amp;serverTimezone=GMT"/>
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+
+     </bean>
+    <!--开启声明式水合物-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!--构造方法的传入事务的数据源-->
+        <!--<constructor-arg ref="resourse" />-->
+        <property name="dataSource" ref="resourse"/>
+    </bean>
+
+    <!--sqlsessionfactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="resourse" />
+        <!--绑定mybatis-->
+        <property name="configLocation" value="classpath:MybatisConfig.xml"/>
+        <!--绑定映射器文件  可以代替mybatis的mappers-->
+        <property name="mapperLocations" value="classpath:com/cqf/dao/UserMapper.xml"/>
+
+        <!--<property name="typeAliases" value="com.cqf.pojo.User" />-->
+    </bean>
+    <bean id="sqlsession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+    <!--&lt;!&ndash;实现1实现的内容&ndash;&gt;-->
+    <!--<bean id="usermapper" class="com.cqf.dao.UserMapperImpl">-->
+        <!--<property name="sqlSession" ref="sqlsession"/>-->
+    <!--</bean>-->
+    <!--实现2继承的extends SqlSessionDaoSupport-->
+<bean id="usermapper" class="com.cqf.dao.UserMapperImpl">
+    <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+</bean>
+    <!--通过aop实现事务的植入-->
+    <!--配置事务的通知-->
+    <tx:advice id="advice" transaction-manager="transactionManager">
+        <!--给什么方法配置事务-->
+        <!--配置事务的传播特效-->
+        <tx:attributes>
+            <!--<tx:method name="get" propagation="REQUIRED"/>-->
+            <!--<tx:method name="adduser" propagation="REQUIRED"/>-->
+            <!--<tx:method name="delete" propagation="REQUIRED"/>-->
+            <tx:method name="*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <aop:pointcut id="cut" expression="execution(* com.cqf.dao.*.*(..))"/>
+        <aop:advisor advice-ref="advice" pointcut-ref="cut"/>
+    </aop:config>
+
+
+
+</beans>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--spring创建对象  相当于对象  property 属性设置值  class 给要new对-->
+<bean id="he" class="com.cqf.dao.hello">
+    <property name="name" value="Spring"/>
+</bean>
+    <alias name="he" alias="123"/>
+<bean id="helloT" class="com.cqf.dao.hello" name="hello,uu,90">
+    <property name="name" value="S"/>
+</bean>
+
+</beans>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--spring创建对象  相当于对象  property 属性设置值  class 给要new对-->
+
+
+    <bean id="students" class="com.cqf.dao.Student">
+    <property name="name" value="lisi"/>
+    <property name="address" ref="address"/>
+    <property name="books" >
+        <array>
+            <value>yuwen</value>
+            <value>shuxue</value>
+            <value>yingyu</value>
+            <value>huaxue</value>
+        </array>
+    </property>
+    <property name="hobbise">
+        <list>
+            <value>sing</value>
+            <value>swing</value>
+            <value>dance</value>
+        </list>
+    </property>
+    <property name="card">
+        <map>
+            <entry value="123" key="1"></entry>
+            <entry key="2" value="456"></entry>
+        </map>
+    </property>
+    <property name="games">
+        <set>
+            <value>cross fire</value>
+            <value>lol</value>
+        </set>
+    </property>
+    <property name="wife">
+        <null></null>
+    </property>
+    <property name="info">
+        <props>
+            <prop key="root">123</prop>
+            <prop key="pwd">root</prop>
+        </props>
+    </property>
+
+
+</bean>
+    <bean id="address" class="com.cqf.dao.Address">
+        <property name="address" value="shahnhai"/>
+    </bean>
+
+
+
+</beans>
